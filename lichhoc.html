@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lịch học - StudyHub</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #172b4d;
+}
+
+
+/* =====================================================
+   HEADER
+   Đồng bộ với index / hỏi đáp
+===================================================== */
+
+.header {
+    height: 72px;
+    background: white;
+    border-bottom: 1px solid #e6eaf0;
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+
+/* Logo */
+
+.logo {
+    width: 245px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1464d2;
+    flex-shrink: 0;
+}
+
+.logo-mark {
+    width: 40px;
+    height: 40px;
+
+    border: 3px solid #1464d2;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #1464d2;
+
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.logo-text {
+    color: #1464d2;
+    font-size: 22px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* Search */
+
+.search {
+    width: 510px;
+}
+
+.search input {
+    width: 100%;
+    height: 42px;
+
+    border: 1px solid #dce7f5;
+    border-radius: 8px;
+
+    padding: 0 15px;
+
+    outline: none;
+
+    color: #172b4d;
+
+    font-size: 14px;
+
+    background: #ffffff;
+}
+
+.search input::placeholder {
+    color: #6f7785;
+}
+
+.search input:focus {
+    border-color: #1464d2;
+}
+
+
+/* =====================================================
+   LAYOUT
+===================================================== */
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 72px);
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+    width: 245px;
+
+    background: white;
+
+    border-right: 1px solid #e6eaf0;
+
+    padding: 25px 14px;
+
+    flex-shrink: 0;
+}
+
+.sidebar-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8a96a8;
+    padding: 0 16px 15px;
+    text-transform: uppercase;
+}
+
+.menu-item {
+    height: 48px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 16px;
+    margin-bottom: 5px;
+
+    color: #40516c;
+    font-size: 15px;
+
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: #f0f5fc;
+    color: #1464d2;
+}
+.menu-item.active {
+    background: #1464d2;
+    color: white;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+    flex: 1;
+
+    padding: 20px;
+
+    min-width: 0;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        350px;
+
+    gap: 20px;
+
+    background: #f5f7fb;
+}
+
+.schedule-area {
+    min-width: 0;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.schedule-hero {
+    background:
+        linear-gradient(
+            110deg,
+            #eaf4ff,
+            #d8ebff
+        );
+
+    border-radius: 12px;
+
+    padding: 25px 35px;
+
+    margin-bottom: 16px;
+}
+
+.schedule-title h1 {
+    color: #123e78;
+
+    font-size: 30px;
+    line-height: 1.2;
+}
+
+.schedule-description {
+    margin-top: 9px;
+
+    color: #536982;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   SCHEDULE CONTAINER
+===================================================== */
+
+.schedule-container {
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 20px 24px;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   CONTROLS
+===================================================== */
+
+.schedule-controls {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 14px;
+}
+
+
+/* Week selector */
+
+.week-selector {
+    width: 500px;
+    height: 56px;
+
+    border: 1px solid #dce7f5;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background: #ffffff;
+
+    flex-shrink: 0;
+}
+
+.week-arrow {
+    width: 52px;
+    height: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: #1464d2;
+
+    font-size: 25px;
+
+    cursor: pointer;
+}
+
+.week-arrow:hover {
+    background: #f2f6fc;
+}
+
+.week-title {
+    flex: 1;
+
+    text-align: center;
+
+    color: #173d77;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* View buttons */
+
+/* =====================================================
+   WEEK INFO
+===================================================== */
+
+.week-info {
+    color: #6f91bd;
+
+    font-size: 15px;
+
+    margin-bottom: 15px;
+}
+
+
+/* =====================================================
+   CALENDAR
+===================================================== */
+
+.calendar-wrapper {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.calendar {
+    width: 100%;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 70px repeat(7, minmax(0, 1fr));
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+
+/* General cell */
+
+.calendar-cell {
+    border-right: 1px solid #dce7f5;
+    border-bottom: 1px solid #dce7f5;
+
+    background: #ffffff;
+}
+
+
+/* =====================================================
+   DAY HEADER
+===================================================== */
+
+.day-header {
+    min-height: 100px;
+
+    background: #f8fbff;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    color: #5274a8;
+}
+
+.day-name {
+    font-size: 16px;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
+}
+
+.day-date {
+    font-size: 14px;
+
+    color: #8290a5;
+}
+
+
+/* Chủ nhật */
+
+.day-header.sunday {
+    background: #eef6ff;
+
+    color: #1464d2;
+}
+
+.day-header.sunday .day-date {
+    color: #5274a8;
+}
+
+/* =====================================================
+   TIME COLUMN
+===================================================== */
+
+.time-header {
+    min-height: 100px;
+
+    background: #f8fbff;
+}
+
+.time-cell {
+    min-height: 100px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    padding-top: 18px;
+
+    text-align: center;
+
+    color: #6f91bd;
+
+    font-size: 14px;
+
+    line-height: 1.45;
+
+    background: #fbfcfe;
+}
+
+
+/* =====================================================
+   EMPTY CELL
+===================================================== */
+
+.empty-cell {
+    min-height: 100px;
+
+    background: #ffffff;
+}
+
+
+/* =====================================================
+   CLASS CELL
+===================================================== */
+
+.class-cell {
+    min-height: 100px;
+
+    padding: 8px;
+
+    position: relative;
+}
+
+.class-item {
+    min-height: 84px;
+
+    background: #eef4ff;
+
+    border: 1px solid #c9ddff;
+
+    border-radius: 9px;
+
+    padding: 10px 11px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.class-item:hover {
+    background: #e5efff;
+
+    border-color: #9fc3ff;
+}
+
+.class-name {
+    color: #173d77;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+.class-session {
+    color: #1464d2;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+.class-time {
+    color: #6f91bd;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   RIGHT COLUMN
+===================================================== */
+
+.right-column {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+
+    min-width: 0;
+}
+
+
+/* =====================================================
+   SIDE CARD
+===================================================== */
+
+.side-card {
+    background: #ffffff;
+
+    border: 1px solid #e5e9ef;
+
+    border-radius: 12px;
+
+    padding: 22px;
+}
+
+.side-card h2 {
+    color: #1464d2;
+
+    font-size: 21px;
+
+    margin-bottom: 18px;
+}
+
+
+/* =====================================================
+   UPCOMING CLASS
+===================================================== */
+
+.upcoming-class {
+    border: 1px solid #dce7f5;
+
+    border-radius: 10px;
+
+    padding: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+   .upcoming-class:hover {
+    background: #f8fbff;
+    border-color: #9fc3ff;
+}
+
+.upcoming-label {
+    color: #1464d2;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 9px;
+}
+
+.upcoming-name {
+    color: #173d77;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    margin-bottom: 12px;
+}
+
+.upcoming-info {
+    color: #6f91bd;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.upcoming-session {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 5px 10px;
+
+    background: #eef4ff;
+
+    border-radius: 6px;
+
+    color: #1464d2;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   MOTIVATION
+===================================================== */
+
+.motivation-card {
+    background:
+        linear-gradient(
+            135deg,
+            #eef9ff,
+            #f1fbf5
+        );
+
+    border: 1px solid #dceef0;
+
+    border-radius: 12px;
+
+    padding: 22px;
+}
+
+.motivation-title {
+    color: #1464d2;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    margin-bottom: 10px;
+}
+
+.motivation-text {
+    color: #536982;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+   /* =====================================================
+   POPUP CHI TIẾT BUỔI HỌC
+===================================================== */
+
+.lesson-modal {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(23, 43, 77, 0.35);
+
+    z-index: 500;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+.lesson-modal.open {
+    display: flex;
+}
+
+.lesson-modal-box {
+    width: 420px;
+    max-width: 100%;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 15px 40px rgba(23, 43, 77, 0.18);
+
+    position: relative;
+}
+
+.lesson-modal-close {
+    position: absolute;
+
+    top: 14px;
+    right: 16px;
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #f3f6fa;
+
+    color: #6f7785;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.lesson-modal-close:hover {
+    background: #e9eef5;
+    color: #172b4d;
+}
+
+.lesson-modal-label {
+    color: #1464d2;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 10px;
+}
+
+.lesson-modal-title {
+    color: #123e78;
+
+    font-size: 21px;
+    line-height: 1.45;
+
+    font-weight: 700;
+
+    padding-right: 25px;
+
+    margin-bottom: 20px;
+}
+
+.lesson-modal-info {
+    background: #f5f8fc;
+
+    border-radius: 9px;
+
+    padding: 14px 16px;
+
+    color: #536982;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    margin-bottom: 22px;
+}
+
+.lesson-modal-info strong {
+    color: #173d77;
+}
+
+.lesson-modal-button {
+    width: 100%;
+
+    height: 46px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #1464d2;
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.lesson-modal-button:hover {
+    background: #0f56b8;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .lesson-modal {
+        padding: 20px;
+    }
+
+    .lesson-modal-box {
+        width: 100%;
+        padding: 24px;
+        border-radius: 12px;
+    }
+
+    .lesson-modal-title {
+        font-size: 19px;
+    }
+
+}
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+#message {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    max-width: 500px;
+
+    background: #172b4d;
+
+    color: #ffffff;
+
+    padding: 13px 18px;
+
+    border-radius: 8px;
+
+    display: none;
+
+    z-index: 300;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   Đồng bộ với Hỏi đáp
+===================================================== */
+.mobile-menu-button {
+    display: none;
+    position: fixed;
+    top: 16px;
+    left: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid #dce2eb;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #1464d2;
+    font-size: 22px;
+
+    z-index: 300;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: 0 1px 4px rgba(23, 43, 77, 0.08);
+
+    cursor: pointer;
+}
+.sidebar-overlay {
+    display: none;
+}
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 180px;
+    }
+
+    .main {
+        grid-template-columns: 1fr;
+    }
+
+    .right-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sidebar-title {
+        display: block;
+        padding: 0 12px 15px;
+    }
+
+    .menu-item {
+        justify-content: flex-start;
+        padding: 0 12px;
+    }
+
+    .menu-text {
+        display: block;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .mobile-menu-button {
+        display: flex;
+    }
+
+    .header {
+    height: 72px;
+    padding: 0 15px 0 70px;
+}
+
+    .search {
+        display: none;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -200px;
+
+        width: 180px;
+        height: 100vh;
+
+        padding: 90px 10px 25px;
+
+        background: white;
+
+        z-index: 250;
+
+        transition: left 0.25s ease;
+
+        box-shadow: 4px 0 15px rgba(0,0,0,0.08);
+    }
+
+    .sidebar.open {
+        left: 0;
+    }
+
+    .sidebar-title {
+        display: block;
+        padding: 0 12px 15px;
+    }
+
+    .menu-item {
+        justify-content: flex-start;
+        padding: 0 12px;
+    }
+
+    .menu-text {
+        display: block;
+    }
+
+    /* KHUNG XÁM BÊN NGOÀI */
+
+    .sidebar-overlay {
+        display: none;
+
+        position: fixed;
+        inset: 0;
+
+        background: rgba(0, 0, 0, 0.25);
+
+        z-index: 200;
+    }
+
+    .sidebar-overlay.open {
+        display: block;
+    }
+
+    /* MAIN */
+
+.main {
+    padding: 15px;
+}
+
+/* SCHEDULE */
+
+.schedule-hero {
+    padding: 22px;
+    margin-bottom: 16px;
+}
+
+.schedule-title h1 {
+    font-size: 23px;
+    line-height: 1.25;
+}
+
+.schedule-description {
+    margin-top: 9px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.schedule-container {
+    padding: 15px 12px;
+}
+
+    .calendar-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+
+    .calendar-wrapper::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .right-column {
+        grid-template-columns: 1fr;
+    }
+
+    .schedule-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .week-selector {
+        width: 100%;
+    }
+
+    /* LỊCH TUẦN TRÊN ĐIỆN THOẠI */
+
+    .calendar {
+        width: 760px;
+        min-width: 760px;
+
+        grid-template-columns:
+            55px
+            repeat(7, 1fr);
+
+        overflow: visible;
+    }
+
+    .calendar-cell {
+        min-width: 0;
+    }
+
+    .day-header {
+        min-height: 80px;
+        padding: 8px 4px;
+        overflow: hidden;
+    }
+
+    .day-name {
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .day-date {
+        font-size: 12px;
+        white-space: nowrap;
+        margin-top: 4px;
+    }
+
+    .time-header {
+        min-height: 80px;
+    }
+
+    .time-cell {
+        min-height: 90px;
+        font-size: 12px;
+        padding-top: 12px;
+        white-space: nowrap;
+    }
+
+    .empty-cell {
+        min-height: 90px;
+    }
+
+    .class-cell {
+        min-height: 90px;
+        padding: 5px;
+        overflow: visible;
+    }
+
+    .class-item {
+        min-height: 80px;
+        padding: 8px;
+        border-radius: 7px;
+        overflow: hidden;
+    }
+
+    .class-name {
+        font-size: 13px;
+        line-height: 1.4;
+        margin-bottom: 6px;
+        overflow-wrap: break-word;
+        word-break: normal;
+    }
+
+    .class-session {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+
+    .class-time {
+        font-size: 11px;
+        white-space: nowrap;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<button
+    class="mobile-menu-button"
+    onclick="toggleSidebar()"
+    aria-label="Mở menu"
+>
+    ☰
+</button>
+
+<div
+    class="sidebar-overlay"
+    onclick="toggleSidebar()"
+></div>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+    <div class="logo">
+
+        <div class="logo-mark">
+            S
+        </div>
+
+        <div class="logo-text">
+            StudyHub
+        </div>
+
+    </div>
+
+
+    <div class="search">
+
+        <input
+            type="text"
+            placeholder="Tìm kiếm khóa học, bài giảng, tài liệu..."
+        >
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     LAYOUT
+===================================================== -->
+
+<div class="layout">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-title">
+        KHÓA HỌC
+    </div>
+
+
+    <div
+        class="menu-item"
+        onclick="window.location.href='index.html'"
+    >
+        <span class="menu-text">
+            Trang chủ
+        </span>
+    </div>
+
+
+    <div class="menu-item active">
+
+        <span class="menu-text">
+            Lịch học
+        </span>
+
+    </div>
+
+
+    <div
+        class="menu-item"
+        onclick="window.location.href='hoidap.html'"
+    >
+        <span class="menu-text">
+            Hỏi đáp
+        </span>
+    </div>
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+<!-- =====================================================
+     LEFT
+===================================================== -->
+
+<section class="schedule-area">
+
+
+    <!-- HERO -->
+
+    <div class="schedule-hero">
+
+        <div class="schedule-title">
+
+            <h1>
+                Lịch học
+            </h1>
+
+        </div>
+
+        <p class="schedule-description">
+            Theo dõi lịch học của bạn và không bỏ lỡ bất kỳ buổi học nào.
+        </p>
+
+    </div>
+
+
+
+    <!-- SCHEDULE -->
+
+    <div class="schedule-container">
+
+
+        <!-- CONTROLS -->
+
+        <div class="schedule-controls">
+
+
+            <div class="week-selector">
+
+                <button
+                    class="week-arrow"
+                    onclick="changeWeek(-1)"
+                    aria-label="Tuần trước"
+                >
+                    ‹
+                </button>
+
+
+                <div
+                    class="week-title"
+                    id="week-title"
+                >
+                    Tuần 18
+                </div>
+
+
+                <button
+                    class="week-arrow"
+                    onclick="changeWeek(1)"
+                    aria-label="Tuần sau"
+                >
+                    ›
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- WEEK INFO -->
+
+        <div
+            class="week-info"
+            id="week-info"
+        >
+        </div>
+
+
+
+        <!-- CALENDAR -->
+
+        <div class="calendar-wrapper">
+
+    <div class="calendar" id="calendar"></div>
+
+</div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     RIGHT COLUMN
+===================================================== -->
+
+<aside class="right-column">
+
+
+    <!-- LỚP HỌC SẮP TỚI -->
+
+    <div class="side-card">
+
+        <h2>
+            Lớp học sắp tới
+        </h2>
+
+
+        <div
+            class="upcoming-class"
+            id="upcoming-class"
+        >
+        </div>
+
+    </div>
+
+
+
+    <!-- CỐ LÊN -->
+
+    <div class="motivation-card">
+
+        <div class="motivation-title">
+            Cố lên nhé!
+        </div>
+
+        <div class="motivation-text">
+            Mỗi buổi học là một bước tiến gần hơn tới mục tiêu của bạn!
+        </div>
+
+    </div>
+
+</aside>
+
+
+</main>
+
+</div>
+
+
+
+<!-- =====================================================
+     POPUP CHI TIẾT BUỔI HỌC
+===================================================== -->
+
+<div
+    class="lesson-modal"
+    id="lesson-modal"
+    onclick="closeLessonModal(event)"
+>
+
+    <div
+        class="lesson-modal-box"
+        onclick="event.stopPropagation()"
+    >
+
+        <button
+            class="lesson-modal-close"
+            onclick="closeLessonModal()"
+            aria-label="Đóng"
+        >
+            ×
+        </button>
+
+
+        <div
+            class="lesson-modal-title"
+            id="lesson-modal-title"
+        >
+        </div>
+
+
+        <div
+            class="lesson-modal-info"
+            id="lesson-modal-info"
+        >
+        </div>
+
+
+        <button
+            class="lesson-modal-button"
+            id="lesson-modal-button"
+            onclick="joinClass()"
+        >
+            Vào lớp
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MESSAGE
+===================================================== -->
+
+<div id="message"></div>
+
+
+
+<script>
+
+/* =====================================================
+   DỮ LIỆU KHÓA HỌC
+===================================================== */
+
+const CLASS_NAME =
+    "Đào tạo năng lực số và khả năng ứng dụng AI trong công việc cho người lao động";
+
+
+/* =====================================================
+   8 BUỔI
+   TẤT CẢ ĐỀU VÀO CHỦ NHẬT
+===================================================== */
+
+const lessons = [
+
+    {
+        date: "2027-05-02",
+        session: 1
+    },
+
+    {
+        date: "2027-05-09",
+        session: 2
+    },
+
+    {
+        date: "2027-05-16",
+        session: 3
+    },
+
+    {
+        date: "2027-05-23",
+        session: 4
+    },
+
+    {
+        date: "2027-05-30",
+        session: 5
+    },
+
+    {
+        date: "2027-06-06",
+        session: 6
+    },
+
+    {
+        date: "2027-06-13",
+        session: 7
+    },
+
+    {
+        date: "2027-06-20",
+        session: 8
+    }
+
+];
+
+
+/* =====================================================
+   THỜI GIAN HỌC
+===================================================== */
+
+const LESSON_START = "09:30";
+const LESSON_END = "11:00";
+
+
+/* =====================================================
+   TUẦN MẶC ĐỊNH
+   Thứ 2: 26/04/2027
+   Chủ nhật: 02/05/2027
+===================================================== */
+
+let currentWeekStart =
+    new Date(2027, 3, 26);
+
+
+/* =====================================================
+   TÊN NGÀY
+===================================================== */
+
+const dayNames = [
+
+    "Thứ 2",
+    "Thứ 3",
+    "Thứ 4",
+    "Thứ 5",
+    "Thứ 6",
+    "Thứ 7",
+    "Chủ nhật"
+
+];
+
+
+/* =====================================================
+   KHUNG GIỜ
+===================================================== */
+
+const timeSlots = [
+
+    {
+        start: "07:00",
+        end: "09:00"
+    },
+
+    {
+        start: "09:00",
+        end: "11:00"
+    },
+
+    {
+        start: "11:00",
+        end: "13:00"
+    },
+
+    {
+        start: "13:00",
+        end: "15:00"
+    },
+
+    {
+        start: "15:00",
+        end: "17:00"
+    },
+
+    {
+        start: "17:00",
+        end: "19:00"
+    },
+
+    {
+        start: "19:00",
+        end: "21:00"
+    }
+
+];
+
+
+/* =====================================================
+   FORMAT DATE
+   Không dùng toISOString()
+   để tránh lỗi lệch ngày do timezone
+===================================================== */
+
+function formatDate(date) {
+
+    const day =
+        String(date.getDate()).padStart(2, "0");
+
+    const month =
+        String(date.getMonth() + 1).padStart(2, "0");
+
+    const year =
+        date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+}
+
+
+/* =====================================================
+   DATE KEY
+===================================================== */
+
+function getDateKey(date) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(date.getMonth() + 1).padStart(2, "0");
+
+    const day =
+        String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+/* =====================================================
+   PARSE LESSON DATE
+===================================================== */
+
+function parseLessonDate(dateString) {
+
+    const parts =
+        dateString.split("-");
+
+    return new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2])
+    );
+
+}
+
+
+/* =====================================================
+   TÌM BUỔI HỌC
+===================================================== */
+
+function getLesson(date) {
+
+    const dateString =
+        getDateKey(date);
+
+    return lessons.find(function(lesson) {
+
+        return lesson.date === dateString;
+
+    });
+
+}
+
+
+/* =====================================================
+   SỐ TUẦN
+   Giữ cách đánh số giống giao diện hiện tại:
+   26/04/2027 – 02/05/2027 = Tuần 18
+===================================================== */
+
+function getWeekNumber(date) {
+
+    const firstDay =
+        new Date(date.getFullYear(), 0, 1);
+
+    const difference =
+        Math.floor(
+            (
+                date - firstDay
+            ) / 86400000
+        );
+
+    return Math.ceil(
+        (
+            difference +
+            firstDay.getDay() +
+            1
+        ) / 7
+    );
+
+}
+
+/* =====================================================
+   RENDER CALENDAR TUẦN
+===================================================== */
+
+function renderCalendar() {
+
+    const calendar =
+        document.getElementById("calendar");
+
+    calendar.innerHTML = "";
+
+
+    /* -----------------------------------------------
+       GÓC TRÊN CÙNG
+    ----------------------------------------------- */
+
+    const emptyHeader =
+        document.createElement("div");
+
+    emptyHeader.className =
+        "calendar-cell time-header";
+
+    calendar.appendChild(emptyHeader);
+
+
+    /* -----------------------------------------------
+       7 NGÀY
+    ----------------------------------------------- */
+
+    for (
+        let i = 0;
+        i < 7;
+        i++
+    ) {
+
+        const date =
+            new Date(currentWeekStart);
+
+        date.setDate(
+            currentWeekStart.getDate() + i
+        );
+
+
+        const header =
+            document.createElement("div");
+
+        header.className =
+            "calendar-cell day-header";
+
+
+        if (i === 6) {
+            header.classList.add("sunday");
+        }
+
+
+        header.innerHTML = `
+
+            <div class="day-name">
+                ${dayNames[i]}
+            </div>
+
+            <div class="day-date">
+                ${formatDate(date)}
+            </div>
+
+        `;
+
+
+        calendar.appendChild(header);
+
+    }
+
+
+    /* -----------------------------------------------
+       CÁC KHUNG GIỜ
+    ----------------------------------------------- */
+
+    timeSlots.forEach(function(slot) {
+
+
+        /* CỘT GIỜ */
+
+        const timeCell =
+            document.createElement("div");
+
+        timeCell.className =
+            "calendar-cell time-cell";
+
+        timeCell.innerHTML = `
+            ${slot.start} –<br>
+            ${slot.end}
+        `;
+
+        calendar.appendChild(timeCell);
+
+
+        /* 7 NGÀY */
+
+        for (
+            let day = 0;
+            day < 7;
+            day++
+        ) {
+
+            const date =
+                new Date(currentWeekStart);
+
+            date.setDate(
+                currentWeekStart.getDate() + day
+            );
+
+
+            const cell =
+                document.createElement("div");
+
+            cell.className =
+                "calendar-cell empty-cell";
+
+
+            const lesson =
+                getLesson(date);
+
+
+            /*
+             * Buổi học 09:30–11:00
+             * nằm trong khung 09:00–11:00
+             */
+
+            if (
+                lesson &&
+                slot.start === "09:00" &&
+                day === 6
+            ) {
+
+                cell.className =
+                    "calendar-cell class-cell";
+
+
+                cell.innerHTML = `
+
+                    <div
+                        class="class-item"
+                        onclick="showLesson(${lesson.session})"
+                    >
+
+                        <div class="class-name">
+                            Đào tạo năng lực số & AI
+                        </div>
+
+                        <div class="class-session">
+                            Buổi học ${lesson.session}
+                        </div>
+
+                        <div class="class-time">
+                            ${LESSON_START} – ${LESSON_END}
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+
+            calendar.appendChild(cell);
+
+        }
+
+    });
+
+
+    updateWeekInformation();
+
+}
+
+/* =====================================================
+   UPDATE WEEK
+===================================================== */
+
+function updateWeekInformation() {
+
+    const weekTitle =
+        document.getElementById("week-title");
+
+    const weekInfo =
+        document.getElementById("week-info");
+
+
+    const weekEnd =
+        new Date(currentWeekStart);
+
+    weekEnd.setDate(
+        currentWeekStart.getDate() + 6
+    );
+
+
+    const weekNumber =
+        getWeekNumber(currentWeekStart);
+
+
+    weekTitle.textContent =
+        `Tuần ${weekNumber} (${formatDate(currentWeekStart)} - ${formatDate(weekEnd)})`;
+
+
+    updateUpcomingClass();
+
+}
+
+/* =====================================================
+   CHUYỂN TUẦN / THÁNG BẰNG NÚT ‹ ›
+===================================================== */
+function changeWeek(direction) {
+
+    currentWeekStart.setDate(
+        currentWeekStart.getDate() +
+        direction * 7
+    );
+
+    renderCalendar();
+
+}
+/* =====================================================
+   LỚP HỌC SẮP TỚI
+===================================================== */
+
+function updateUpcomingClass() {
+
+    const container =
+        document.getElementById("upcoming-class");
+
+
+    /*
+     * Mốc hiện tại của giao diện.
+     * Buổi đầu tiên là 02/05/2027.
+     */
+
+    const today =
+        new Date();
+
+
+    let nextLesson = null;
+
+
+    for (
+        let i = 0;
+        i < lessons.length;
+        i++
+    ) {
+
+        const lessonDate =
+            parseLessonDate(
+                lessons[i].date
+            );
+
+
+        if (lessonDate >= today) {
+
+            nextLesson =
+                lessons[i];
+
+            break;
+
+        }
+
+    }
+
+
+    /* Nếu đã hoàn thành */
+
+    if (!nextLesson) {
+
+        container.innerHTML = `
+
+            <div class="upcoming-label">
+                Hoàn thành
+            </div>
+
+            <div class="upcoming-name">
+                Bạn đã hoàn thành toàn bộ 8 buổi học.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const lessonDate =
+        parseLessonDate(
+            nextLesson.date
+        );
+
+
+    container.innerHTML = `
+
+    <div class="upcoming-name">
+        ${CLASS_NAME}
+    </div>
+
+    <div class="upcoming-info">
+
+        ${LESSON_START} – ${LESSON_END}
+
+        <br>
+
+        Chủ nhật, ${formatDate(lessonDate)}
+
+    </div>
+
+    <div class="upcoming-session">
+        Buổi học ${nextLesson.session}
+    </div>
+
+`;
+
+container.onclick = function() {
+    showLesson(nextLesson.session);
+};
+}
+
+
+/* =====================================================
+   CLICK BUỔI HỌC
+===================================================== */
+
+function showLesson(session) {
+
+    const lesson =
+        lessons.find(function(item) {
+
+            return item.session === session;
+
+        });
+
+
+    if (!lesson) {
+        return;
+    }
+
+
+    const date =
+        parseLessonDate(
+            lesson.date
+        );
+
+
+    document.getElementById("lesson-modal-title").textContent =
+        `Buổi học ${session}`;
+
+
+    document.getElementById("lesson-modal-info").innerHTML = `
+
+        <strong>Khóa học:</strong><br>
+        ${CLASS_NAME}
+
+        <br><br>
+
+        <strong>Thời gian:</strong><br>
+        ${LESSON_START} – ${LESSON_END}
+
+        <br><br>
+
+        <strong>Ngày học:</strong><br>
+        Chủ nhật, ${formatDate(date)}
+
+    `;
+
+
+    document
+        .getElementById("lesson-modal")
+        .classList.add("open");
+
+}
+
+/* =====================================================
+   ĐÓNG POPUP
+===================================================== */
+
+function closeLessonModal(event) {
+
+    if (
+        event &&
+        event.target !== event.currentTarget
+    ) {
+        return;
+    }
+
+
+    document
+        .getElementById("lesson-modal")
+        .classList.remove("open");
+
+}
+
+
+/* =====================================================
+   NÚT VÀO LỚP
+===================================================== */
+
+function joinClass() {
+
+    const meetLink = "https://meet.google.com/sue-ukxh-tnu";
+
+    window.open(
+        meetLink,
+        "_blank"
+    );
+
+}
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(text) {
+
+    const message =
+        document.getElementById("message");
+
+
+    message.textContent =
+        text;
+
+
+    message.style.display =
+        "block";
+
+
+    clearTimeout(
+        window.messageTimeout
+    );
+
+
+    window.messageTimeout =
+        setTimeout(function() {
+
+            message.style.display =
+                "none";
+
+        }, 3500);
+
+}
+    
+/* =====================================================
+   KHỞI TẠO
+===================================================== */
+
+function toggleSidebar() {
+
+    const sidebar =
+        document.querySelector(".sidebar");
+
+    const overlay =
+        document.querySelector(".sidebar-overlay");
+
+    sidebar.classList.toggle("open");
+
+    overlay.classList.toggle("open");
+}
+
+
+renderCalendar();
+
+</script>
+
+</body>
+</html>
