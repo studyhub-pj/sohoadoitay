@@ -1,0 +1,2772 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Hỏi đáp - StudyHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172b4d;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .header {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e6eaf0;
+            display: flex;
+            align-items: center;
+            padding: 0 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            width: 245px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1464d2;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #1464d2;
+            border-radius: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .search {
+            width: 510px;
+        }
+
+        .search input {
+            width: 100%;
+            height: 42px;
+
+            border: 1px solid #dce7f5;
+            border-radius: 8px;
+
+            padding: 0 15px;
+
+            outline: none;
+            color: #172b4d;
+            font-size: 14px;
+        }
+
+        .search input:focus {
+            border-color: #1464d2;
+        }
+
+
+        /* ================= LAYOUT ================= */
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 72px);
+        }
+
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            width: 245px;
+            background: white;
+            border-right: 1px solid #e6eaf0;
+            padding: 25px 14px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #8a96a8;
+            padding: 0 16px 15px;
+            text-transform: uppercase;
+        }
+
+        .menu-item {
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            margin-bottom: 5px;
+            color: #40516c;
+            font-size: 15px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background: #f0f5fc;
+            color: #1464d2;
+        }
+
+        .menu-item.active {
+            background: #1464d2;
+            color: white;
+            font-weight: 600;
+        }
+
+        .menu-text {
+            white-space: nowrap;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .main {
+            flex: 1;
+            padding: 20px;
+
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 350px;
+            gap: 20px;
+
+            background: #f5faff;
+        }
+
+
+        /* ================= QUESTIONS AREA ================= */
+
+        .questions-area {
+            min-width: 0;
+        }
+
+
+        /* ================= HERO ================= */
+
+        .qa-hero {
+            background: linear-gradient(
+                110deg,
+                #eaf4ff,
+                #d8ebff
+            );
+
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin-bottom: 12px;
+        }
+
+        .qa-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            color: #123e78;
+        }
+
+        .qa-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+            background: #1478ed;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+        }
+
+        .qa-icon svg {
+            width: 27px;
+            height: 27px;
+        }
+
+        .qa-title h1 {
+            font-size: 30px;
+            line-height: 1;
+        }
+
+        .qa-description {
+            margin-top: 8px;
+
+            color: #536982;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .qa-search-row {
+            display: flex;
+            gap: 18px;
+            margin-top: 12px;
+        }
+
+        .question-search {
+            flex: 1;
+            height: 44px;
+
+            border: none;
+            border-radius: 8px;
+
+            padding: 0 16px;
+
+            background: white;
+            outline: none;
+
+            color: #172b4d;
+            font-size: 14px;
+        }
+
+        .ask-button {
+            width: 150px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #1464d2;
+            color: white;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .ask-button:hover {
+            background: #0f56b8;
+        }
+
+
+        /* ================= QUESTION LIST ================= */
+
+        .question-container {
+            background: white;
+            border-radius: 12px;
+            padding: 16px 20px;
+        }
+
+        .question-filter {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+            margin-bottom: 16px;
+        }
+
+        .filter-button {
+            border: none;
+            background: transparent;
+
+            color: #5274a8;
+
+            padding: 11px 18px;
+            border-radius: 9px;
+
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .filter-button.active {
+            background: #1677ed;
+            color: white;
+        }
+
+        .lesson-filter {
+            margin-left: auto;
+
+            height: 44px;
+            width: 205px;
+
+            border: 1px solid #dce7f5;
+            border-radius: 8px;
+
+            background: white;
+            color: #5274a8;
+
+            padding: 0 13px;
+            font-size: 14px;
+        }
+
+
+        /* ================= QUESTION CARD ================= */
+
+        .question-card {
+    border: 1px solid #dce7f5;
+    border-radius: 11px;
+    padding: 17px 18px;
+    margin-bottom: 14px;
+    position: relative;
+    height: auto;
+    min-height: 0;
+}
+
+        .question-top {
+            display: flex;
+            gap: 16px;
+        }
+
+        .question-avatar {
+            width: 46px;
+            height: 46px;
+
+            border-radius: 50%;
+
+            background: #eaf4ff;
+            color: #1464d2;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+            font-size: 16px;
+
+            flex-shrink: 0;
+        }
+
+        .question-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .question-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 8px;
+        }
+
+        .question-name strong {
+            color: #173d77;
+            font-size: 14px;
+        }
+
+        .question-text {
+    color: #234b82;
+    font-size: 15px;
+    line-height: 1.6;
+    padding-right: 0;
+}
+
+        .question-status {
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    display: inline-block;
+
+    border-radius: 15px;
+    padding: 5px 10px;
+
+    font-size: 11px;
+    line-height: 1.3;
+    white-space: nowrap;
+}
+
+.question-status.answered {
+    background: #e8f7ee;
+    color: #1f9d55;
+}
+
+.question-status.unanswered {
+    background: #fff4e3;
+    color: #e89b27;
+}
+
+
+.question-status.answered {
+    background: #e8f7ee;
+    color: #1f9d55;
+}
+
+.question-status.unanswered {
+    background: #fff4e3;
+    color: #e89b27;
+}
+
+        .question-meta {
+            margin-top: 9px;
+            color: #6f91bd;
+            font-size: 12px;
+        }
+
+
+        /* ================= RIGHT COLUMN ================= */
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side-card {
+            background: white;
+
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+
+            padding: 20px;
+        }
+
+        .side-card h2 {
+            color: #123e78;
+            font-size: 19px;
+            margin-bottom: 18px;
+        }
+
+
+        /* ================= TEACHER ================= */
+
+        .teacher {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .teacher-avatar {
+            width: 64px;
+            height: 64px;
+
+            border-radius: 50%;
+            background: #eaf4ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #1464d2;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .teacher-info strong {
+            display: block;
+            font-size: 14px;
+            color: #173d77;
+            margin-bottom: 5px;
+        }
+
+        .teacher-info span {
+            color: #7d91ad;
+            font-size: 13px;
+        }
+
+        .message-button {
+            width: 100%;
+            height: 42px;
+
+            margin-top: 14px;
+
+            background: white;
+            border: 1px solid #4c9aff;
+            border-radius: 8px;
+
+            color: #1464d2;
+            font-size: 14px;
+
+            cursor: pointer;
+        }
+
+
+        /* ================= POPULAR QUESTIONS ================= */
+
+        .popular-item {
+            padding: 14px 0;
+
+            border-bottom: 1px solid #edf0f4;
+
+            color: #1470dc;
+            font-size: 14px;
+            line-height: 1.5;
+
+            cursor: pointer;
+        }
+
+        .popular-item:first-child {
+            padding-top: 0;
+        }
+
+        .popular-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .popular-item:hover {
+            color: #0f56b8;
+        }
+
+
+        /* ================= MESSAGE ================= */
+
+        #message {
+            position: fixed;
+            right: 25px;
+            bottom: 25px;
+
+            background: #172b4d;
+            color: white;
+
+            padding: 13px 18px;
+            border-radius: 8px;
+
+            display: none;
+            z-index: 300;
+
+            font-size: 13px;
+        }
+
+
+        /* ================= MOBILE MENU ================= */
+
+        .mobile-menu-button {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #dce2eb;
+            border-radius: 8px;
+            background: white;
+            color: #1464d2;
+            font-size: 22px;
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-overlay {
+            display: none;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 180px;
+            }
+
+            .main {
+                grid-template-columns: 1fr;
+            }
+
+            .right-column {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .sidebar-title {
+                display: block;
+                padding: 0 12px 15px;
+            }
+
+            .menu-item {
+                justify-content: flex-start;
+                padding: 0 12px;
+            }
+
+            .menu-text {
+                display: block;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .mobile-menu-button {
+                display: flex;
+            }
+
+            .header {
+                padding: 0 15px 0 70px;
+            }
+
+            .search {
+                display: none;
+            }
+
+            /* SIDEBAR MOBILE */
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -200px;
+                width: 180px;
+                height: 100vh;
+                padding: 90px 10px 25px;
+                z-index: 250;
+                transition: left 0.25s ease;
+                box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .sidebar-title {
+                display: block;
+                padding: 0 12px 15px;
+            }
+
+            .menu-item {
+                justify-content: flex-start;
+                padding: 0 12px;
+            }
+
+            .menu-text {
+                display: block;
+            }
+
+            /* OVERLAY */
+
+            .sidebar-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.25);
+                z-index: 200;
+            }
+
+            .sidebar-overlay.open {
+                display: block;
+            }
+
+            .main {
+                padding: 15px;
+            }
+
+            .qa-title h1 {
+                font-size: 24px;
+            }
+
+            .qa-search-row {
+    flex-direction: row;
+    gap: 8px;
+}
+
+.question-search {
+    flex: 1;
+    min-width: 0;
+    height: 45px;
+}
+
+.ask-button {
+    width: 105px;
+    height: 45px;
+    flex-shrink: 0;
+    font-size: 13px;
+}
+            .question-filter {
+    flex-wrap: nowrap;
+    gap: 2px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+            .filter-button {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 10px 12px;
+    font-size: 13px;
+}
+
+            .lesson-filter {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .right-column {
+                grid-template-columns: 1fr;
+            }
+
+            .question-text {
+    padding-right: 0;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+            .question-status {
+                position: static;
+                display: inline-block;
+                margin-top: 10px;
+            }
+
+            .question-status.answered {
+                background: #e8f7ee;
+                color: #1f9d55;
+            }
+
+            .question-status.unanswered {
+                background: #fff4e3;
+                color: #e89b27;
+            }
+
+        }
+
+
+        /* ================= QUESTION ACTIONS ================= */
+
+        .question-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .question-actions button {
+            border: none;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .edit-question {
+            background: #eef4ff;
+            color: #2563eb;
+        }
+
+        .delete-question {
+            background: #fff0f0;
+            color: #dc2626;
+        }
+
+        .edit-question:hover {
+            background: #dce9ff;
+        }
+
+        .delete-question:hover {
+            background: #ffe0e0;
+        }
+
+
+        /* ================= QUESTION DETAIL ================= */
+
+        .question-detail {
+            width: 100%;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: #1464d2;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 0;
+            margin-bottom: 16px;
+        }
+
+        .question-detail-card {
+    background: white;
+    border: 1px solid #dce7f5;
+    border-radius: 12px;
+    padding: 18px 22px;
+    height: auto;
+}
+
+        .detail-question-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .detail-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #eaf4ff;
+            color: #1464d2;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 700;
+        }
+
+        .detail-user-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-user-info strong {
+            font-size: 14px;
+            color: #173d77;
+        }
+
+        .detail-user-info span {
+            font-size: 12px;
+            color: #8290a5;
+        }
+
+        .detail-question-content {
+    width: 100%;
+    color: #234b82;
+    font-size: 17px;
+    line-height: 1.7;
+    white-space: normal;
+    text-align: left;
+    text-indent: 0;
+    margin: 0;
+    padding: 0;
+    height: auto;
+    min-height: 0;
+    overflow-wrap: anywhere;
+}
+
+        .answers-section {
+            margin-top: 20px;
+        }
+
+        .answers-section h2 {
+            font-size: 18px;
+            color: #123e78;
+            margin-bottom: 14px;
+        }
+
+        .answer-card {
+    background: white;
+    border: 1px solid #dce7f5;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 12px;
+}
+        .answer-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .answer-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #eaf4ff;
+            color: #1464d2;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .answer-user {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .answer-user strong {
+            font-size: 14px;
+            color: #173d77;
+        }
+
+        .answer-user span {
+            font-size: 12px;
+            color: #8290a5;
+        }
+
+        .answer-content {
+    color: #334e70;
+    font-size: 17px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    overflow-wrap: anywhere;
+}
+
+        .answer-form {
+            background: white;
+            border: 1px solid #dce7f5;
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 18px;
+        }
+
+        .answer-form h3 {
+            font-size: 16px;
+            color: #123e78;
+            margin-bottom: 14px;
+        }
+
+        .answer-form input,
+        .answer-form textarea {
+            width: 100%;
+            border: 1px solid #dce7f5;
+            border-radius: 8px;
+            padding: 11px 13px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            color: #172b4d;
+            outline: none;
+            margin-bottom: 10px;
+        }
+
+        .answer-form input:focus,
+        .answer-form textarea:focus {
+            border-color: #1464d2;
+        }
+
+        .answer-form textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .answer-form button {
+            height: 40px;
+            padding: 0 18px;
+            border: none;
+            border-radius: 8px;
+            background: #1464d2;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .answer-form button:hover {
+            background: #0f56b8;
+        }
+
+        .answer-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+            margin-left: 48px;
+        }
+
+        .edit-answer,
+        .delete-answer {
+            border: none;
+            background: none;
+            padding: 0;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .edit-answer {
+            color: #4a7cff;
+        }
+
+        .delete-answer {
+            color: #e05252;
+        }
+
+        .edit-answer:hover,
+        .delete-answer:hover {
+            text-decoration: underline;
+        }
+        /* QUESTION DETAIL MOBILE */
+
+.question-detail {
+    width: 100%;
+    min-width: 0;
+}
+
+.question-detail-card {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 16px;
+    margin: 0;
+}
+
+.detail-question-content {
+    width: 100%;
+    font-size: 17px;
+    line-height: 1.65;
+    text-align: left;
+    text-indent: 0;
+    padding: 0 !important;
+    margin: 0 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+}
+        @media (max-width: 600px) {
+
+    .answer-card {
+        padding: 16px;
+    }
+
+    .answer-content {
+        font-size: 16px;
+        line-height: 1.7;
+    }
+
+    .answer-actions {
+        margin-left: 0;
+    }
+
+}
+
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= MOBILE MENU BUTTON ================= -->
+
+<button class="mobile-menu-button" onclick="toggleSidebar()">
+    ☰
+</button>
+
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo">
+
+        <div class="logo-mark">
+            S
+        </div>
+
+        <span class="logo-text">
+            StudyHub
+        </span>
+
+    </div>
+
+
+    <div class="search">
+
+        <input
+            type="text"
+            placeholder="Tìm kiếm khóa học, bài giảng, tài liệu..."
+        >
+
+    </div>
+
+</header>
+
+
+<!-- ================= LAYOUT ================= -->
+
+<div class="layout">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+            Khóa học
+        </div>
+
+        <div class="menu-item" onclick="window.location.href='index.html'">
+            <span class="menu-text">Trang chủ</span>
+        </div>
+
+        <div class="menu-item" onclick="window.location.href='lichhoc.html'">
+            <span class="menu-text">Lịch học</span>
+        </div>
+
+        <div class="menu-item active">
+            <span class="menu-text">Hỏi đáp</span>
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- ================= QUESTION DETAIL ================= -->
+
+        <div
+            id="question-detail"
+            class="question-detail"
+            style="display: none;"
+        >
+
+            <button
+                class="back-button"
+                onclick="closeQuestionDetail()"
+            >
+                ← Quay lại Hỏi đáp
+            </button>
+
+
+            <div id="question-detail-content"></div>
+
+
+            <div class="answers-section">
+
+                <h2 id="answers-title">
+                    Câu trả lời
+                </h2>
+
+
+                <div id="answers-list"></div>
+
+
+                <div class="answer-form">
+
+                    <h3>
+                        Viết câu trả lời
+                    </h3>
+
+
+                    <input
+                        type="text"
+                        id="answer-name"
+                        placeholder="Tên của bạn"
+                    >
+
+
+                    <textarea
+                        id="answer-content"
+                        placeholder="Viết câu trả lời của bạn..."
+                    ></textarea>
+
+
+                    <button onclick="submitAnswer()">
+                        Gửi trả lời
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= QUESTIONS ================= -->
+
+        <div class="questions-area">
+
+
+            <!-- HERO -->
+
+            <div class="qa-hero">
+
+                <div class="qa-title">
+
+    <h1>
+        Hỏi đáp
+    </h1>
+
+</div>
+
+
+                <p class="qa-description">
+                    Bạn có thắc mắc trong quá trình học?
+                    Đặt câu hỏi tại đây, giảng viên sẽ hỗ trợ bạn sớm nhất.
+                </p>
+
+
+                <div class="qa-search-row">
+
+                    <input
+                        class="question-search"
+                        type="text"
+                        placeholder="Tìm kiếm câu hỏi..."
+                    >
+
+                    <button
+                        class="ask-button"
+                        onclick="openAskForm()"
+                    >
+                        Đặt câu hỏi
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUESTION LIST -->
+
+            <div class="question-container">
+
+
+                <div class="question-filter">
+
+                    <button class="filter-button active">
+                        Tất cả
+                    </button>
+
+                    <button class="filter-button">
+                        Chưa trả lời
+                    </button>
+
+                    <button class="filter-button">
+                        Đã trả lời
+                    </button>
+
+                    <button class="filter-button">
+                        Câu hỏi của tôi
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RIGHT COLUMN ================= -->
+
+        <div class="right-column">
+
+
+            <!-- TEACHER -->
+
+            <div class="side-card">
+
+                <h2>
+                    Giảng viên
+                </h2>
+
+
+                <div class="teacher">
+
+                    <div class="teacher-avatar">
+                        GV
+                    </div>
+
+
+                    <div class="teacher-info">
+
+                        <strong>
+                            ThS. Đoàn Nguyên Đán
+                        </strong>
+
+                        <span>
+                            Giảng viên
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="message-button"
+                    onclick="window.open('https://zalo.me/0399104732', '_blank')"
+                >
+                    Liên hệ
+                </button>
+
+            </div>
+
+
+            <!-- POPULAR -->
+
+            <div class="side-card">
+
+                <h2>
+                    Câu hỏi phổ biến
+                </h2>
+
+
+                <div class="popular-item">
+                    Làm sao để tìm thông tin về tiền tăng ca?
+                </div>
+
+                <div class="popular-item">
+                    Có nên tin các bài đăng trên Facebook không?
+                </div>
+
+                <div class="popular-item">
+                    Làm thế nào để tìm lại thông tin đã xem trên Google?
+                </div>
+
+                <div class="popular-item">
+                    Nên lưu giấy tờ cá nhân ở đâu để an toàn?
+                </div>
+
+                <div class="popular-item">
+                    Làm sao để biết một trang web có phải của cơ quan nhà nước không?
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<!-- ================= MESSAGE ================= -->
+
+<div id="message"></div>
+
+
+<script>
+
+    /* ================= SUPABASE ================= */
+
+    const SUPABASE_URL =
+        "https://gsdjtsllxbadbfsfaqfx.supabase.co";
+
+    const SUPABASE_KEY =
+        "sb_publishable_9WZSyLqYWTF7yPRGQXGWsA_wQGETJ1D";
+
+    const supabaseClient =
+        supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+
+    /* ================= MESSAGE ================= */
+
+    function showMessage(text) {
+
+        const message =
+            document.getElementById("message");
+
+        message.innerText = text;
+
+        message.style.display = "block";
+
+        setTimeout(function() {
+
+            message.style.display = "none";
+
+        }, 2500);
+
+    }
+
+
+    /* ================= ASK FORM ================= */
+
+    function openAskForm() {
+
+        const name = prompt(
+            "Nhập tên của bạn:"
+        );
+
+        if (!name || name.trim() === "") {
+            return;
+        }
+
+        const content = prompt(
+            "Nhập câu hỏi của bạn:"
+        );
+
+        if (!content || content.trim() === "") {
+            return;
+        }
+
+        createQuestion(
+            name.trim(),
+            content.trim()
+        );
+
+    }
+
+
+    /* ================= CREATE QUESTION ================= */
+
+    async function createQuestion(name, content) {
+
+        try {
+
+            const avatar =
+                name
+                    .split(" ")
+                    .map(function(word) {
+                        return word.charAt(0);
+                    })
+                    .slice(-2)
+                    .join("")
+                    .toUpperCase();
+
+
+            const { data, error } =
+                await supabaseClient
+                    .from("questions")
+                    .insert([
+                        {
+                            name: name,
+                            avatar: avatar,
+                            content: content
+                        }
+                    ])
+                    .select()
+                    .single();
+
+
+            if (error) {
+
+                console.error(error);
+
+                showMessage(
+                    "Không thể gửi câu hỏi. Vui lòng thử lại."
+                );
+
+                return;
+            }
+
+
+            const myQuestions =
+                JSON.parse(
+                    localStorage.getItem("myQuestions") || "[]"
+                );
+
+
+            myQuestions.push(data.id);
+
+
+            localStorage.setItem(
+                "myQuestions",
+                JSON.stringify(myQuestions)
+            );
+
+
+            showMessage(
+                "Đã đăng câu hỏi thành công."
+            );
+
+
+            loadQuestions();
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Có lỗi xảy ra khi gửi câu hỏi."
+            );
+
+        }
+
+    }
+
+
+    /* ================= LOAD QUESTIONS ================= */
+
+    async function loadQuestions() {
+
+        try {
+
+            const { data, error } =
+                await supabaseClient
+                    .from("questions")
+                    .select("id, name, avatar, content, created_at")
+                    .order("created_at", {
+                        ascending: false
+                    });
+
+            if (error) {
+
+                console.error("SUPABASE ERROR:", error);
+
+                showMessage(
+                    "Lỗi Supabase: " + error.message
+                );
+
+                return;
+            }
+
+            console.log("QUESTIONS:", data);
+
+            displayOnlineQuestions(data);
+
+        } catch (error) {
+
+            console.error("LOAD QUESTIONS ERROR:", error);
+
+            showMessage(
+                "Có lỗi khi tải câu hỏi: " + error.message
+            );
+
+        }
+
+    }
+
+
+    /* ================= DISPLAY ONLINE QUESTIONS ================= */
+
+    async function displayOnlineQuestions(questions) {
+
+        const container =
+            document.querySelector(".question-container");
+
+        if (!container) return;
+
+
+        document
+            .querySelectorAll(".online-question")
+            .forEach(function(card) {
+                card.remove();
+            });
+
+
+        const myQuestions =
+            JSON.parse(
+                localStorage.getItem("myQuestions") || "[]"
+            );
+
+
+        const questionCards =
+            await Promise.all(
+
+                questions.map(async function(question) {
+
+                    const { count, error: answerError } =
+                        await supabaseClient
+                            .from("answers")
+                            .select("*", {
+                                count: "exact",
+                                head: true
+                            })
+                            .eq(
+                                "question_id",
+                                question.id
+                            );
+
+
+                    const answerCount =
+                        answerError
+                            ? 0
+                            : (count || 0);
+
+
+                    const card =
+                        document.createElement("div");
+
+
+                    card.className =
+                        "question-card online-question";
+
+
+                    card.dataset.questionId =
+                        question.id;
+
+
+                    card.style.cursor =
+                        "pointer";
+
+
+                    card.addEventListener(
+                        "click",
+                        function(event) {
+
+                            if (
+                                event.target.closest("button")
+                            ) {
+                                return;
+                            }
+
+                            openQuestionDetail(question);
+
+                        }
+                    );
+
+
+                    const time =
+                        formatTime(
+                            question.created_at
+                        );
+
+
+                    const isMine =
+                        myQuestions
+                            .map(String)
+                            .includes(
+                                String(question.id)
+                            );
+
+
+                    let actionButtons = "";
+
+
+                    if (isMine) {
+
+                        actionButtons = `
+
+                            <div class="question-actions">
+
+                                <button
+                                    class="edit-question"
+                                    onclick="editQuestion(${question.id}); event.stopPropagation();"
+                                >
+                                    Sửa
+                                </button>
+
+                                <button
+                                    class="delete-question"
+                                    onclick="deleteQuestion(${question.id}); event.stopPropagation();"
+                                >
+                                    Xóa
+                                </button>
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+                    card.innerHTML = `
+
+                        <div class="question-top">
+
+                            <div class="question-avatar">
+                                ${escapeHTML(question.avatar || "HV")}
+                            </div>
+
+                            <div class="question-content">
+
+                                <div class="question-name">
+                                    <strong>
+                                        ${escapeHTML(question.name)}
+                                    </strong>
+                                </div>
+
+                                <div class="question-text">
+                                    ${escapeHTML(question.content)}
+                                </div>
+
+                                <div class="question-meta">
+                                    ${time}&nbsp;&nbsp;•&nbsp;&nbsp;${answerCount} phản hồi
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="question-status ${answerCount > 0 ? "answered" : "unanswered"}">
+                            ${answerCount > 0 ? "Đã trả lời" : "Chưa trả lời"}
+                        </div>
+
+                        ${actionButtons}
+
+                    `;
+
+
+                    return card;
+
+                })
+
+            );
+
+
+        questionCards.forEach(
+            function(card) {
+                container.appendChild(card);
+            }
+        );
+
+    }
+
+
+    /* ================= EDIT QUESTION ================= */
+
+    async function editQuestion(id) {
+
+        const { data, error } =
+            await supabaseClient
+                .from("questions")
+                .select("*")
+                .eq("id", id)
+                .single();
+
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Không thể tải câu hỏi."
+            );
+
+            return;
+        }
+
+
+        const newContent =
+            prompt(
+                "Chỉnh sửa câu hỏi:",
+                data.content
+            );
+
+
+        if (
+            newContent === null ||
+            newContent.trim() === ""
+        ) {
+            return;
+        }
+
+
+        const { error: updateError } =
+            await supabaseClient
+                .from("questions")
+                .update({
+                    content: newContent.trim()
+                })
+                .eq("id", id);
+
+
+        if (updateError) {
+
+            console.error(updateError);
+
+            showMessage(
+                "Không thể sửa câu hỏi."
+            );
+
+            return;
+        }
+
+
+        showMessage(
+            "Đã sửa câu hỏi."
+        );
+
+
+        loadQuestions();
+
+    }
+
+
+    /* ================= DELETE QUESTION ================= */
+
+    async function deleteQuestion(id) {
+
+        const confirmed =
+            confirm(
+                "Bạn có chắc muốn xóa câu hỏi này không?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        const { error } =
+            await supabaseClient
+                .from("questions")
+                .delete()
+                .eq("id", id);
+
+
+        if (error) {
+
+            console.error(error);
+
+            showMessage(
+                "Không thể xóa câu hỏi."
+            );
+
+            return;
+        }
+
+
+        const myQuestions =
+            JSON.parse(
+                localStorage.getItem("myQuestions") || "[]"
+            );
+
+
+        const updatedQuestions =
+            myQuestions.filter(
+                function(questionId) {
+
+                    return String(questionId)
+                        !== String(id);
+
+                }
+            );
+
+
+        localStorage.setItem(
+            "myQuestions",
+            JSON.stringify(updatedQuestions)
+        );
+
+
+        showMessage(
+            "Đã xóa câu hỏi."
+        );
+
+
+        loadQuestions();
+
+    }
+
+
+    /* ================= QUESTION DETAIL ================= */
+
+    let currentQuestion = null;
+
+
+    function openQuestionDetail(question) {
+
+        currentQuestion = question;
+
+
+        const questionDetail =
+            document.getElementById(
+                "question-detail"
+            );
+
+
+        questionDetail.dataset.questionId =
+            question.id;
+
+
+        const questionsArea =
+            document.querySelector(
+                ".questions-area"
+            );
+
+
+        questionsArea.style.display =
+            "none";
+
+
+        questionDetail.style.display =
+            "block";
+
+
+        const detailContent =
+            document.getElementById(
+                "question-detail-content"
+            );
+
+
+        detailContent.innerHTML = `
+
+            <div class="question-detail-card">
+
+                <div class="detail-question-header">
+
+                    <div class="detail-avatar">
+                        ${escapeHTML(question.avatar || "HV")}
+                    </div>
+
+                    <div class="detail-user-info">
+
+                        <strong>
+                            ${escapeHTML(question.name)}
+                        </strong>
+
+                        <span>
+                            ${formatTime(question.created_at)}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-question-content">${escapeHTML(String(question.content || "").trim())}</div>
+
+            </div>
+
+        `;
+
+
+        loadAnswers(question.id);
+
+    }
+
+
+    function closeQuestionDetail() {
+
+        currentQuestion = null;
+
+
+        document.getElementById(
+            "question-detail"
+        ).style.display = "none";
+
+
+        document.querySelector(
+            ".questions-area"
+        ).style.display = "block";
+
+    }
+
+
+    /* ================= LOAD ANSWERS ================= */
+
+    async function loadAnswers(questionId) {
+
+        const container =
+            document.getElementById(
+                "answers-list"
+            );
+
+
+        if (!container) return;
+
+
+        const { data, error } =
+            await supabaseClient
+                .from("answers")
+                .select(
+                    "id, question_id, name, avatar, content, created_at"
+                )
+                .eq(
+                    "question_id",
+                    questionId
+                )
+                .order(
+                    "created_at",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "LOAD ANSWERS ERROR:",
+                error
+            );
+
+
+            showMessage(
+                "Không thể tải phản hồi: "
+                + error.message
+            );
+
+
+            return;
+        }
+
+
+        container.innerHTML = "";
+
+
+        const myAnswers =
+            JSON.parse(
+                localStorage.getItem("myAnswers") || "[]"
+            );
+
+
+        data.forEach(
+            function(answer) {
+
+                const isMine =
+                    myAnswers
+                        .map(String)
+                        .includes(
+                            String(answer.id)
+                        );
+
+
+                const answerCard =
+                    document.createElement("div");
+
+
+                answerCard.className =
+                    "answer-card";
+
+
+                let actionButtons = "";
+
+
+                if (isMine) {
+
+                    actionButtons = `
+
+                        <div class="answer-actions">
+
+                            <button
+                                class="edit-answer"
+                                onclick="editAnswer(${answer.id}); event.stopPropagation();"
+                            >
+                                Sửa
+                            </button>
+
+                            <button
+                                class="delete-answer"
+                                onclick="deleteAnswer(${answer.id}); event.stopPropagation();"
+                            >
+                                Xóa
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                answerCard.innerHTML = `
+
+                    <div class="answer-header">
+
+                        <div class="answer-avatar">
+                            ${escapeHTML(answer.avatar || "HV")}
+                        </div>
+
+                        <div class="answer-user">
+
+                            <strong>
+                                ${escapeHTML(answer.name)}
+                            </strong>
+
+                            <span>
+                                ${formatTime(answer.created_at)}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="answer-content">${escapeHTML(String(answer.content || "").trim())}</div>
+
+
+                    ${actionButtons}
+
+                `;
+
+
+                container.appendChild(
+                    answerCard
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ================= EDIT ANSWER ================= */
+
+    async function editAnswer(id) {
+
+        const { data, error } =
+            await supabaseClient
+                .from("answers")
+                .select("content, question_id")
+                .eq("id", id)
+                .single();
+
+
+        if (error) {
+
+            console.error(
+                "GET ANSWER ERROR:",
+                error
+            );
+
+
+            showMessage(
+                "Không tìm thấy phản hồi"
+            );
+
+
+            return;
+        }
+
+
+        const newContent =
+            prompt(
+                "Chỉnh sửa phản hồi:",
+                data.content
+            );
+
+
+        if (newContent === null) {
+            return;
+        }
+
+
+        const content =
+            newContent.trim();
+
+
+        if (!content) {
+
+            showMessage(
+                "Nội dung không được để trống"
+            );
+
+
+            return;
+        }
+
+
+        const { error: updateError } =
+            await supabaseClient
+                .from("answers")
+                .update({
+                    content: content
+                })
+                .eq("id", id);
+
+
+        if (updateError) {
+
+            console.error(
+                "UPDATE ANSWER ERROR:",
+                updateError
+            );
+
+
+            showMessage(
+                "Không thể sửa phản hồi: "
+                + updateError.message
+            );
+
+
+            return;
+        }
+
+
+        await loadAnswers(
+            data.question_id
+        );
+
+
+        await loadQuestions();
+
+
+        showMessage(
+            "Đã cập nhật phản hồi"
+        );
+
+    }
+
+
+    /* ================= DELETE ANSWER ================= */
+
+    async function deleteAnswer(id) {
+
+        const confirmed =
+            confirm(
+                "Bạn có chắc muốn xóa phản hồi này không?"
+            );
+
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        const { data, error } =
+            await supabaseClient
+                .from("answers")
+                .select("question_id")
+                .eq("id", id)
+                .single();
+
+
+        if (error) {
+
+            console.error(
+                "GET ANSWER ERROR:",
+                error
+            );
+
+
+            showMessage(
+                "Không tìm thấy phản hồi"
+            );
+
+
+            return;
+        }
+
+
+        const questionId =
+            data.question_id;
+
+
+        const { error: deleteError } =
+            await supabaseClient
+                .from("answers")
+                .delete()
+                .eq("id", id);
+
+
+        if (deleteError) {
+
+            console.error(
+                "DELETE ANSWER ERROR:",
+                deleteError
+            );
+
+
+            showMessage(
+                "Không thể xóa phản hồi: "
+                + deleteError.message
+            );
+
+
+            return;
+        }
+
+
+        const myAnswers =
+            JSON.parse(
+                localStorage.getItem("myAnswers") || "[]"
+            );
+
+
+        const updatedAnswers =
+            myAnswers.filter(
+                function(answerId) {
+
+                    return String(answerId)
+                        !== String(id);
+
+                }
+            );
+
+
+        localStorage.setItem(
+            "myAnswers",
+            JSON.stringify(updatedAnswers)
+        );
+
+
+        await loadAnswers(
+            questionId
+        );
+
+
+        await loadQuestions();
+
+
+        showMessage(
+            "Đã xóa phản hồi"
+        );
+
+    }
+
+
+    /* ================= SUBMIT ANSWER ================= */
+
+    async function submitAnswer() {
+
+        const nameInput =
+            document.querySelector(
+                "#answer-name"
+            );
+
+
+        const contentInput =
+            document.querySelector(
+                "#answer-content"
+            );
+
+
+        if (!nameInput || !contentInput) {
+            return;
+        }
+
+
+        const name =
+            nameInput.value.trim();
+
+
+        const content =
+            contentInput.value.trim();
+
+
+        if (!name) {
+
+            showMessage(
+                "Vui lòng nhập tên của bạn"
+            );
+
+
+            nameInput.focus();
+
+
+            return;
+        }
+
+
+        if (!content) {
+
+            showMessage(
+                "Vui lòng nhập nội dung phản hồi"
+            );
+
+
+            contentInput.focus();
+
+
+            return;
+        }
+
+
+        const questionId =
+            document
+                .getElementById(
+                    "question-detail"
+                )
+                .dataset.questionId;
+
+
+        if (!questionId) {
+
+            showMessage(
+                "Không xác định được câu hỏi"
+            );
+
+
+            return;
+        }
+
+
+        const avatar =
+            name
+                .split(" ")
+                .map(
+                    function(word) {
+                        return word.charAt(0);
+                    }
+                )
+                .slice(-2)
+                .join("")
+                .toUpperCase();
+
+
+        const { data, error } =
+            await supabaseClient
+                .from("answers")
+                .insert([
+                    {
+                        question_id:
+                            questionId,
+
+                        name:
+                            name,
+
+                        avatar:
+                            avatar,
+
+                        content:
+                            content
+                    }
+                ])
+                .select()
+                .single();
+
+
+        if (error) {
+
+            console.error(
+                "ANSWER ERROR:",
+                error
+            );
+
+
+            showMessage(
+                "Không thể gửi phản hồi: "
+                + error.message
+            );
+
+
+            return;
+        }
+
+
+        const myAnswers =
+            JSON.parse(
+                localStorage.getItem("myAnswers") || "[]"
+            );
+
+
+        myAnswers.push(
+            String(data.id)
+        );
+
+
+        localStorage.setItem(
+            "myAnswers",
+            JSON.stringify(myAnswers)
+        );
+
+
+        nameInput.value = "";
+        contentInput.value = "";
+
+
+        await loadAnswers(
+            questionId
+        );
+
+
+        await loadQuestions();
+
+
+        showMessage(
+            "Đã gửi phản hồi"
+        );
+
+    }
+
+
+    /* ================= FORMAT TIME ================= */
+
+    function formatTime(dateString) {
+
+        const date =
+            new Date(dateString);
+
+
+        const now =
+            new Date();
+
+
+        const difference =
+            Math.floor(
+                (now - date) / 1000
+            );
+
+
+        if (difference < 60) {
+            return "Vừa đăng";
+        }
+
+
+        if (difference < 3600) {
+
+            return (
+                Math.floor(
+                    difference / 60
+                )
+                + " phút trước"
+            );
+
+        }
+
+
+        if (difference < 86400) {
+
+            return (
+                Math.floor(
+                    difference / 3600
+                )
+                + " giờ trước"
+            );
+
+        }
+
+
+        return (
+            Math.floor(
+                difference / 86400
+            )
+            + " ngày trước"
+        );
+
+    }
+
+
+    /* ================= SECURITY ================= */
+
+    function escapeHTML(text) {
+
+        return String(text ?? "")
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* ================= SEARCH QUESTIONS ================= */
+
+    const questionSearch =
+        document.querySelector(
+            ".question-search"
+        );
+
+
+    questionSearch.addEventListener(
+        "input",
+        function() {
+
+            const keyword =
+                questionSearch.value
+                    .trim()
+                    .toLowerCase();
+
+
+            document
+                .querySelectorAll(
+                    ".online-question"
+                )
+                .forEach(
+                    function(card) {
+
+                        const text =
+                            card
+                                .querySelector(
+                                    ".question-text"
+                                )
+                                .textContent
+                                .toLowerCase();
+
+
+                        const name =
+                            card
+                                .querySelector(
+                                    ".question-name"
+                                )
+                                .textContent
+                                .toLowerCase();
+
+
+                        const isMatch =
+                            text.includes(keyword)
+                            ||
+                            name.includes(keyword);
+
+
+                        card.style.display =
+                            isMatch
+                                ? ""
+                                : "none";
+
+                    }
+                );
+
+        }
+    );
+
+
+    /* ================= FILTER ================= */
+
+    const filterButtons =
+        document.querySelectorAll(
+            ".filter-button"
+        );
+
+
+    filterButtons.forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    filterButtons.forEach(
+                        function(item) {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    const filter =
+                        button.textContent.trim();
+
+
+                    const myQuestions =
+                        JSON.parse(
+                            localStorage.getItem(
+                                "myQuestions"
+                            ) || "[]"
+                        );
+
+
+                    document
+                        .querySelectorAll(
+                            ".online-question"
+                        )
+                        .forEach(
+                            function(card) {
+
+                                const status =
+                                    card.querySelector(
+                                        ".question-status"
+                                    );
+
+
+                                if (!status) {
+                                    return;
+                                }
+
+
+                                const questionId =
+                                    String(
+                                        card.dataset.questionId
+                                    );
+
+
+                                const questionStatus =
+                                    status.textContent.trim();
+
+
+                                let shouldShow =
+                                    false;
+
+
+                                if (
+                                    filter ===
+                                    "Tất cả"
+                                ) {
+
+                                    shouldShow =
+                                        true;
+
+                                }
+
+
+                                else if (
+                                    filter ===
+                                    "Chưa trả lời"
+                                    &&
+                                    questionStatus ===
+                                    "Chưa trả lời"
+                                ) {
+
+                                    shouldShow =
+                                        true;
+
+                                }
+
+
+                                else if (
+                                    filter ===
+                                    "Đã trả lời"
+                                    &&
+                                    questionStatus ===
+                                    "Đã trả lời"
+                                ) {
+
+                                    shouldShow =
+                                        true;
+
+                                }
+
+
+                                else if (
+                                    filter ===
+                                    "Câu hỏi của tôi"
+                                    &&
+                                    myQuestions
+                                        .map(String)
+                                        .includes(
+                                            questionId
+                                        )
+                                ) {
+
+                                    shouldShow =
+                                        true;
+
+                                }
+
+
+                                card.style.display =
+                                    shouldShow
+                                        ? ""
+                                        : "none";
+
+                            }
+                        );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* ================= MOBILE SIDEBAR ================= */
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.querySelector(
+                ".sidebar"
+            );
+
+
+        const overlay =
+            document.querySelector(
+                ".sidebar-overlay"
+            );
+
+
+        sidebar.classList.toggle(
+            "open"
+        );
+
+
+        overlay.classList.toggle(
+            "open"
+        );
+
+    }
+
+
+    /* ================= LOAD DATA ================= */
+
+    loadQuestions();
+
+</script>
+
+</body>
+
+</html>
