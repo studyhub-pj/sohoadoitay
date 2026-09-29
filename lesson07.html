@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Buổi 07 - StudyHub</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172b4d;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .header {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e6eaf0;
+            display: flex;
+            align-items: center;
+            padding: 0 32px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            width: 245px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            color: #1464d2;
+        }
+
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #1464d2;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            display: block;
+        }
+
+        .search {
+            width: 510px;
+        }
+
+        .search input {
+            width: 100%;
+            height: 42px;
+            border: 1px solid #dce7f5;
+            border-radius: 8px;
+            padding: 0 15px;
+            outline: none;
+            color: #172b4d;
+            font-size: 14px;
+        }
+
+        .search input:focus {
+            border-color: #1464d2;
+        }
+
+        main {
+            width: calc(100% - 245px);
+            max-width: 1100px;
+            margin-left: 245px;
+            padding: 30px;
+        }
+
+        .lesson-header {
+            background: linear-gradient(100deg, #eaf4ff, #d8ebff);
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+
+        .lesson-number {
+            color: #1464d2;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .lesson-header h1 {
+            font-size: 29px;
+            line-height: 1.25;
+            margin-bottom: 10px;
+            color: #123e78;
+        }
+
+        .lesson-header p {
+            color: #536982;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .section {
+            background: white;
+            border: 1px solid #e5e9ef;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            font-size: 17px;
+            margin-bottom: 18px;
+            color: #172b4d;
+        }
+
+        .video {
+            width: 100%;
+            height: 450px;
+            background: #172b4d;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .video-placeholder {
+            text-align: center;
+        }
+
+        .video-placeholder p {
+            margin-top: 10px;
+            color: #c8d1df;
+            font-size: 13px;
+        }
+
+        .document-box {
+            border: 1px solid #dce2eb;
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .document-info h3 {
+    margin: 0 0 5px;
+    color: #172b4d;
+    font-size: 16px;
+}
+
+        .document-meta {
+            margin-top: 10px;
+            color: #9aa5b4;
+            font-size: 12px;
+        }
+
+        .document-button {
+            border: none;
+            background: #1464d2;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+            white-space: nowrap;
+        }
+
+        .document-button:hover {
+            background: #0f56b8;
+        }
+
+        .quiz-box {
+            border: 1px solid #dce2eb;
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+
+        .quiz-info h3 {
+            margin: 0 0 18px;
+            color: #172b4d;
+            font-size: 16px;
+        }
+
+        .quiz-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .quiz-details > div {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .quiz-label {
+            color: #8793a5;
+            font-size: 12px;
+        }
+
+        .quiz-details strong {
+            color: #172b4d;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .quiz-button {
+            margin-top: 22px;
+            border: none;
+            background: #1464d2;
+            color: white;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .quiz-button:hover {
+            background: #0f56b8;
+        }
+
+        .feedback-box {
+    border: 1px solid #dce2eb;
+    border-radius: 12px;
+    padding: 20px 24px;
+    min-height: 132px;
+}
+
+.feedback-info h3 {
+    margin: 0 0 8px;
+    color: #172b4d;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.feedback-info p {
+    color: #8793a5;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.feedback-button {
+    border: none;
+    background: #1464d2;
+    color: white;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.feedback-button:hover {
+    background: #0f56b8;
+}
+
+        .sidebar {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            width: 245px;
+            height: calc(100vh - 72px);
+            background: white;
+            border-right: 1px solid #e6eaf0;
+            padding: 25px 14px;
+            z-index: 250;
+        }
+
+        .sidebar-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #8a96a8;
+            padding: 0 16px 15px;
+            text-transform: uppercase;
+        }
+
+        .menu-item {
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            margin-bottom: 5px;
+            color: #40516c;
+            font-size: 15px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            background: #f0f5fc;
+            color: #1464d2;
+        }
+
+        .menu-item.active {
+            background: #1464d2;
+            color: white;
+            font-weight: 600;
+        }
+
+        .menu-button {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            border: 1px solid #dce2eb;
+            border-radius: 8px;
+            background: white;
+            color: #1464d2;
+            font-size: 22px;
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 200;
+            display: none;
+        }
+
+        .sidebar-overlay.open {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 0 15px 0 70px;
+            }
+
+            .menu-button {
+                display: flex;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: -200px;
+                width: 180px;
+                height: 100vh;
+                padding: 90px 10px 25px;
+                transition: left 0.25s ease;
+                box-shadow: 4px 0 15px rgba(0, 0, 0, 0.08);
+                z-index: 250;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            main {
+                width: 100%;
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .logo {
+    width: 245px;
+    flex-shrink: 0;
+}
+
+.logo-text {
+    color: #1464d2;
+    font-size: 22px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+            .search {
+                display: none;
+            }
+
+            .lesson-header {
+                padding: 22px;
+            }
+
+            .lesson-header h1 {
+                font-size: 23px;
+            }
+
+            .section {
+                padding: 18px;
+            }
+
+            .video {
+                height: 230px;
+            }
+
+            .document-box {
+                padding: 16px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .document-button {
+                width: 100%;
+            }
+
+            .quiz-box {
+                padding: 16px;
+            }
+
+            .quiz-details {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .quiz-button {
+                width: 100%;
+            }
+
+            .feedback-box {
+    padding: 16px;
+    min-height: auto;
+}
+
+.feedback-info h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.feedback-info p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+}
+
+.feedback-button {
+    width: 100%;
+    padding: 10px 22px;
+    font-size: 15px;
+}
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<button
+    class="menu-button"
+    onclick="toggleSidebar()"
+    aria-label="Mở menu"
+>
+    ☰
+</button>
+
+<div
+    class="sidebar-overlay"
+    id="sidebar-overlay"
+    onclick="toggleSidebar()"
+></div>
+
+<header class="header">
+
+    <div class="logo">
+
+        <div class="logo-mark">
+            S
+        </div>
+
+        <span class="logo-text">
+            StudyHub
+        </span>
+
+    </div>
+
+    <div class="search">
+
+        <input
+            type="text"
+            placeholder="Tìm kiếm khóa học, bài giảng, tài liệu..."
+        >
+
+    </div>
+
+</header>
+
+<aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-title">
+        KHÓA HỌC
+    </div>
+
+    <div
+        class="menu-item"
+        onclick="window.location.href='index.html'"
+    >
+        <span class="menu-text">
+            Trang chủ
+        </span>
+    </div>
+
+    <div
+        class="menu-item"
+        onclick="window.location.href='lichhoc.html'"
+    >
+        <span class="menu-text">
+            Lịch học
+        </span>
+    </div>
+
+    <div
+        class="menu-item"
+        onclick="window.location.href='hoidap.html'"
+    >
+        <span class="menu-text">
+            Hỏi đáp
+        </span>
+    </div>
+
+</aside>
+
+<main>
+
+    <div class="lesson-header">
+
+        <div class="lesson-number">
+            BUỔI 7: ỨNG DỤNG AI TỐI ƯU CÔNG VIỆC HÀNG NGÀY
+        </div>
+
+        <p>
+            Dùng AI để soạn tin nhắn, báo cáo ngắn, tóm tắt văn bản, dịch nhanh.
+        </p>
+
+    </div>
+
+    <div class="section">
+
+        <h2>
+            Video bài giảng
+        </h2>
+
+        <div class="video">
+
+            <div class="video-placeholder">
+
+                <div>
+                    Video bài giảng
+                </div>
+
+                <p>
+                    Video bài giảng sẽ được cập nhật tại đây.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <h2>
+            Tài liệu
+        </h2>
+
+        <div class="document-box">
+
+            <div class="document-info">
+
+                <h3>
+                    Buổi 7: Ứng dụng AI tối ưu công việc hàng ngày
+                </h3>
+
+                <div class="document-meta">
+                    Tài liệu chưa được cập nhật.
+                </div>
+
+            </div>
+
+            <button
+                class="document-button"
+                onclick="showMessage('Tài liệu sẽ được cập nhật sau.')"
+            >
+                Xem tài liệu
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <h2>
+            Kiểm tra cuối buổi
+        </h2>
+
+        <div class="quiz-box">
+
+            <div class="quiz-info">
+
+                <h3>
+                    Bài kiểm tra buổi 7
+                </h3>
+
+                <div class="quiz-details">
+
+                    <div>
+                        <span class="quiz-label">Số câu</span>
+                        <strong>10 câu</strong>
+                    </div>
+
+                    <div>
+                        <span class="quiz-label">Thời gian</span>
+                        <strong>15 phút</strong>
+                    </div>
+
+                    <div>
+                        <span class="quiz-label">Số lần làm</span>
+                        <strong>Không giới hạn</strong>
+                    </div>
+
+                    <div>
+                        <span class="quiz-label">Kết quả</span>
+                        <strong>Hiển thị sau khi hoàn thành</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button
+                class="quiz-button"
+                onclick="showMessage('Bài kiểm tra sẽ được cập nhật sau.')"
+            >
+                Bắt đầu kiểm tra
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <h2>
+            Đánh giá buổi học
+        </h2>
+
+        <div class="feedback-box">
+
+            <div class="feedback-info">
+
+                <h3>
+                    Đánh giá buổi học 7
+                </h3>
+
+                <p>
+                    Ý kiến của bạn giúp chúng tôi cải thiện chất lượng giảng dạy và nội dung khóa học.
+                </p>
+
+            </div>
+
+            <button
+                class="feedback-button"
+                onclick="showMessage('Form đánh giá sẽ được cập nhật sau khi hoàn thành buổi học.')"
+            >
+                Đánh giá buổi học
+            </button>
+
+        </div>
+
+    </div>
+
+</main>
+
+<div
+    id="message"
+    style="
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+        background: #172b4d;
+        color: white;
+        padding: 13px 18px;
+        border-radius: 8px;
+        display: none;
+        z-index: 400;
+        font-size: 13px;
+    "
+></div>
+
+<script>
+
+    function showMessage(text) {
+
+        const message =
+            document.getElementById("message");
+
+        message.innerText = text;
+
+        message.style.display = "block";
+
+        setTimeout(function() {
+
+            message.style.display = "none";
+
+        }, 2500);
+
+    }
+
+    function toggleSidebar() {
+
+        const sidebar =
+            document.getElementById("sidebar");
+
+        const overlay =
+            document.getElementById("sidebar-overlay");
+
+        sidebar.classList.toggle("open");
+
+        overlay.classList.toggle("open");
+
+    }
+
+</script>
+
+</body>
+
+</html>
